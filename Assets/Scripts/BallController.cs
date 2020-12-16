@@ -5,6 +5,9 @@ using UnityEngine;
 public class BallController : MonoBehaviour
 {
     public float speed = 10;
+    private Rigidbody2D rigidbody2d;
+    private float leastVelocity=1;
+
 
     // Start is called before the first frame update
     void Start()
@@ -13,8 +16,22 @@ public class BallController : MonoBehaviour
         var a = DegreeToVector2(b);
         var force = (a) * speed;
         GetComponent<Rigidbody2D>().AddForce(force);
+        rigidbody2d = GetComponent<Rigidbody2D>();
         Debug.Log(a);
         Debug.Log(b);
+    }
+
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (Mathf.Abs(rigidbody2d.velocity.y) < 1)
+        {
+            rigidbody2d.velocity = new Vector2(rigidbody2d.velocity.x, rigidbody2d.velocity.y*2);
+        }
+        if (Mathf.Abs(rigidbody2d.velocity.x) < 1)
+        {
+            rigidbody2d.velocity = new Vector2(rigidbody2d.velocity.x*2, rigidbody2d.velocity.y);
+        }
+
     }
 
     private static Vector2 RadianToVector2(float radian)
