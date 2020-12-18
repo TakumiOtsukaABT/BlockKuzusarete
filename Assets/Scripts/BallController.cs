@@ -34,7 +34,7 @@ public class BallController : MonoBehaviour
         //aaaaaaaaaaaaaa
         //bbbbbbbbbbbb
     }
-    //zzzzzzzzzzzzzzz
+
     private static Vector2 RadianToVector2(float radian)
     {
         return new Vector2(Mathf.Cos(radian), Mathf.Sin(radian));
