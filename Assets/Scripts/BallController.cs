@@ -32,6 +32,7 @@ public class BallController : MonoBehaviour
             rigidbody2d.velocity = new Vector2(rigidbody2d.velocity.x*2, rigidbody2d.velocity.y);
         }
         //aaaaaaaaaaaaaa
+        //bbbbbbbbbbbb
     }
 
     private static Vector2 RadianToVector2(float radian)
