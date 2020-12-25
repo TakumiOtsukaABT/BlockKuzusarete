@@ -25,11 +25,11 @@ public class BallController : MonoBehaviour
     {
         if (Mathf.Abs(rigidbody2d.velocity.y) < 1)
         {
-            rigidbody2d.velocity = new Vector2(rigidbody2d.velocity.x, rigidbody2d.velocity.y*2);
+            rigidbody2d.velocity = new Vector2(rigidbody2d.velocity.x, rigidbody2d.velocity.y*3);
         }
         if (Mathf.Abs(rigidbody2d.velocity.x) < 1)
         {
-            rigidbody2d.velocity = new Vector2(rigidbody2d.velocity.x*2, rigidbody2d.velocity.y);
+            rigidbody2d.velocity = new Vector2(rigidbody2d.velocity.x*3, rigidbody2d.velocity.y);
         }
 
     }
