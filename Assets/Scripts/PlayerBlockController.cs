@@ -17,7 +17,7 @@ public class PlayerBlockController : BoxController
                 Debug.Log(fourDirection.transform.gameObject.name);
                 if (fourDirection.GetComponent<BoxController>())
                 {
-                    Debug.Log("Up");
+                    changePos(ref fourDirection);
                 }
                 return;
             case FourDirections.Down:
@@ -25,7 +25,7 @@ public class PlayerBlockController : BoxController
                 Debug.Log(fourDirection.transform.gameObject.name);
                 if (fourDirection.GetComponent<BoxController>())
                 {
-                    Debug.Log("Down");
+                    changePos(ref fourDirection);
                 }
                 return;
             case FourDirections.Left:
@@ -33,7 +33,7 @@ public class PlayerBlockController : BoxController
                 Debug.Log(fourDirection.transform.gameObject.name);
                 if (fourDirection.GetComponent<BoxController>())
                 {
-                    Debug.Log("Left");
+                    changePos(ref fourDirection);
                 }
                 return;
             case FourDirections.Right:
@@ -41,9 +41,16 @@ public class PlayerBlockController : BoxController
                 Debug.Log(fourDirection.transform.gameObject.name);
                 if (fourDirection.GetComponent<BoxController>())
                 {
-                    Debug.Log("Right");
+                    changePos(ref fourDirection);
                 }
                 return;
         }
+    }
+
+    private void changePos(ref Collider2D object1)
+    {
+        Vector2 vector = object1.transform.position;
+        object1.transform.position = gameObject.transform.position;
+        gameObject.transform.position = vector;
     }
 }
