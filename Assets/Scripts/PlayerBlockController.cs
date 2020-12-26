@@ -1,16 +1,27 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerBlockController : BoxController
 {
     Collider2D fourDirection = new Collider2D();
-
+    public bool movable = true;
+    private GameObject coolDownTime;
+    private void Start()
+    {
+        coolDownTime = GameObject.Find("CoolDownTime");
+    }
     public void move(int direction)
     {
         //0 up, 1 down, 2 left, 3 right
         FourDirections fourDirections = (FourDirections) direction;
-        actionByKey(getDirectionPoint(fourDirections));
+        if (movable)
+        {
+            actionByKey(getDirectionPoint(fourDirections));
+            StartCoroutine(DelayProcess(3.0f));
+        }
     }
 
     private void changePos(ref Collider2D object1)
@@ -39,11 +50,31 @@ public class PlayerBlockController : BoxController
 
     private void actionByKey(Vector2 vector2)
     {
-        fourDirection = Physics2D.OverlapPoint(vector2);
-        Debug.Log(fourDirection.transform.gameObject.name);
-        if (fourDirection.GetComponent<BoxController>())
+        try
         {
-            changePos(ref fourDirection);
+            fourDirection = Physics2D.OverlapPoint(vector2);
+            if (fourDirection.GetComponent<BoxController>())
+            {
+                changePos(ref fourDirection);
+            }
+        } catch (System.NullReferenceException e)
+        {
+            return;
         }
+    }
+    IEnumerator DelayProcess(float wait)
+    {
+        float alpha = wait;
+        while (alpha >= 0)
+        {
+            movable = false;
+            coolDownTime.GetComponent<Text>().text = "Cool Down Time :"+(int)alpha;
+            alpha -= Time.deltaTime;
+            // 残り時間が0以上の場合はタイマーを更新　
+            yield return null;
+        }
+        movable = true;
+        coolDownTime.GetComponent<Text>().text = "Movable";
+        Debug.Log("end");
     }
 }
